@@ -36,7 +36,7 @@ export class IndexUsersComponent implements OnInit {
       console.log("Desconectado del servidor");
     });
 
-    socket.on("usuario:llegado", (message: string) => {
+    socket.on("new:user", (message: string) => {
       console.log(message);
       this.index();
     });
