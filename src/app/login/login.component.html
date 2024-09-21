@@ -8,6 +8,11 @@
       <input type="password" [(ngModel)]="password" name="password" required />
     </div>
     <button type="submit" [disabled]="submitting">Login</button>
-  
+    <p> class="text-sm pt-2 font-light text-gray-500 dark:text-gray-400">
+        ¿Ya tiene una cuenta?
+        <a [routerLink]="['/user_index']" class="font-medium hover:underline text-teal-400 text-primary-600 dark:text-primary-500">
+            Logueate
+        </a>
+    </p>
   </form>
   

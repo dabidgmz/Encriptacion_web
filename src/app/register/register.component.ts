@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { UserLogin } from '../Models/users.models';
-import { LoginService } from './login.service'; // Asegúrate de que el path sea correcto
+import { UserRegister } from '../Models/users.models';
+import { RegisterService } from './register.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -10,10 +10,12 @@ import { RouterLink } from '@angular/router';
   selector: 'app-login-form',
   standalone: true,
   imports: [FormsModule, CommonModule, RouterLink],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
 })
-export class LoginFormComponent {
+export class RegisterComponent {
+  public name: string = '';
+  public confirm_password: string = '';
   public email: string = '';
   public password: string = '';
   public notfound: boolean = false;
@@ -21,7 +23,7 @@ export class LoginFormComponent {
   public passwordVerify: boolean = false;
   public submitting: boolean = false;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private RegisterService: RegisterService, private router: Router) {}
 
   onSubmit(): void {
     this.submitting = true;
@@ -29,12 +31,15 @@ export class LoginFormComponent {
     this.error = false;
     this.passwordVerify = false;
 
-    const user: UserLogin = {
+    const user: UserRegister = {
+      name: this.name,
       email: this.email,
       password: this.password,
+      confirm_password: this.confirm_password,
+
     };
 
-    this.loginService.loginUser(user).subscribe({
+    this.RegisterService.User_register(user).subscribe({
       next: () => {
         this.router.navigate(['user_index']);
       },
