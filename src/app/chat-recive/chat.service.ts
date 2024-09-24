@@ -8,9 +8,9 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
-    private messageSource = new BehaviorSubject<string>(''); // Inicializa con un valor vacío
-    currentMessage = this.messageSource.asObservable(); 
+export class ChatMessageService{
+  private messageSource = new BehaviorSubject<string>(''); // Inicializa con un valor vacío
+  currentMessage = this.messageSource.asObservable();
   private encryptUrl: string = "encrypt"; 
   private decryptUrl: string = "decrypt"; 
 

@@ -1,0 +1,66 @@
+.chat-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.messages {
+  margin-bottom: 15px;
+}
+
+.my-message {
+  background-color: #dcf8c6;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+  text-align: right;
+}
+
+.other-message {
+  background-color: #f1f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.encrypted-message {
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+  text-align: left;
+  color: #666;
+}
+
+.chat-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.send-button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.send-button[disabled] {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
