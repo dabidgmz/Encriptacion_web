@@ -16,3 +16,8 @@ export interface User {
     password: string;
     confirm_password: string;
   } 
+
+  export interface Chat {
+    text: string;
+    encryptedText: string;
+}

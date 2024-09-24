@@ -1,0 +1,20 @@
+<div class="chat-container">
+    <h2>Chat</h2>
+    <form (ngSubmit)="onSubmit()" class="chat-form">
+      <textarea
+        [(ngModel)]="text"
+        name="message"
+        rows="4"
+        placeholder="Escribe tu mensaje..."
+        required
+        class="message-input"
+      ></textarea>
+      <button type="submit" class="send-button" [disabled]="submitting">
+        {{ submitting ? 'Enviando...' : 'Enviar' }}
+      </button>
+    </form>
+    <div *ngIf="error" class="error-message">
+      Ocurrió un error al enviar el mensaje. Inténtalo de nuevo.
+    </div>
+  </div>
+  
