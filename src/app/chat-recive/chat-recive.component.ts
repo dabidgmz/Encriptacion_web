@@ -6,13 +6,14 @@ import { Chat } from '../Models/users.models';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { io } from "socket.io-client";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-chat-recive',
   standalone: true,
   imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './chat-recive.component.html',
-  styleUrl: './chat-recive.component.css'
+  styleUrls: ['./chat-recive.component.css']
 })
 export class ChatReciveComponent implements OnInit {
   public text: string = '';
@@ -20,7 +21,6 @@ export class ChatReciveComponent implements OnInit {
   public error: boolean = false;
   public submitting: boolean = false;
   public messages: { text: string; sender: 'me' | 'other'; encryptedText?: string }[] = [];
-
 
   constructor(private chatMessageService: ChatMessageService, private router: Router) {}
 
@@ -34,9 +34,11 @@ export class ChatReciveComponent implements OnInit {
       encryptedText: this.text,  
       decryptedText: ''         
     };
+
     this.messages.push({ text: this.text, sender: 'me' });
 
-    this.chatMessageService.text(encrypt).subscribe({
+    // Usar el servicio `text_recibe` para enviar el mensaje
+    this.chatMessageService.text_recibe(encrypt).subscribe({
       next: (response) => {
         if (response.originalText !== this.text) {
           this.messages.push({ text: response.originalText, sender: 'other' });
@@ -52,6 +54,7 @@ export class ChatReciveComponent implements OnInit {
       },
     });
   }
+
   ngOnInit(): void {
     const socket = io("ws://127.0.0.1:3333");
   
@@ -60,8 +63,6 @@ export class ChatReciveComponent implements OnInit {
         console.log(message);
         
         const newMessageText = message.encryptedText ? message.encryptedText : message.originalText;
-  
-        // Verificar si el mensaje ya existe en el array para evitar duplicados
         const messageExists = this.messages.some(m => m.text === newMessageText && m.sender === 'other');
         
         if (!messageExists) {
@@ -74,7 +75,4 @@ export class ChatReciveComponent implements OnInit {
       });
     }
   }
-  
-  
-  
 }

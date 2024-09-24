@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from './chat.service';
 import { Chat } from '../Models/users.models';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
+import { io } from "socket.io-client";
 @Component({
   selector: 'app-chat',
   standalone: true,
@@ -13,11 +13,11 @@ import { RouterLink } from '@angular/router';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],  
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit{
   public text: string = '';
   public error: boolean = false;
   public submitting: boolean = false;
-  public messages: { text: string; sender: 'me' | 'other' }[] = []; 
+  public messages: { text: string; sender: 'me' | 'other'; encryptedText?: string }[] = [];
 
   constructor(private chatService: ChatService, private router: Router) {}
 
@@ -48,5 +48,26 @@ export class ChatComponent {
         this.submitting = false; 
       },
     });
+  }
+
+  ngOnInit(): void {
+    const socket = io("ws://127.0.0.1:3333");
+  
+    if (!socket.hasListeners("new:encrypt_second")) {
+      socket.on("new:encrypt_second", (message: any) => {
+        console.log(message);
+        
+        const newMessageText = message.encryptedText ? message.encryptedText : message.originalText;
+        const messageExists = this.messages.some(m => m.text === newMessageText && m.sender === 'other');
+        
+        if (!messageExists) {
+          this.messages.push({
+            text: newMessageText, 
+            sender: 'other',
+            encryptedText: message.encryptedText
+          });
+        }
+      });
+    }
   }
 }
