@@ -2,19 +2,16 @@
   <h2>Chat</h2>
 
   <div class="messages">
-    <div 
-      *ngFor="let message of messages" 
-      [ngClass]="{
-        'my-message': message.sender === 'me',
-        'other-message': message.sender === 'other',
-        'encrypted-message': message.encryptedText 
-      }">
-      {{ message.text }} <!-- Muestra el mensaje original o encriptado -->
+    <div *ngFor="let message of messages; let i = index" [ngClass]="{'my-message': message.sender === 'me', 'other-message': message.sender === 'other'}">
+      {{ message.text }}
+      <button *ngIf="message.encryptedText" (click)="toggleDetails(i)" class="toggle-button">
+        ⬇️ 
+      </button>
+      <div *ngIf="message.showDetails" class="message-details">
+        Texto desencriptado: {{ message.decryptedText || 'Desencriptando...' }}
+      </div>
     </div>
   </div>
-
-  <!-- Muestra el mensaje recibido -->
-  <p>{{ receivedMessage }}</p> 
 
   <form (ngSubmit)="onSubmit()" class="chat-form">
     <textarea

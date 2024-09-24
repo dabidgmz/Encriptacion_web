@@ -86,3 +86,21 @@ h2 {
   color: red;
   text-align: center;
 }
+
+/* Estilos para el botón que despliega los detalles */
+.toggle-button {
+  margin-left: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Estilos para el rectángulo de detalles */
+.message-details {
+  margin-top: 5px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  color: #333;
+}

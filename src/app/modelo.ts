@@ -5,5 +5,6 @@ export interface Modelo<SubModelo> {
     ignore : boolean,
     query : Object,
     originalText: string;
-    
+    encryptedText:string;
+    decryptedText:string;
 }

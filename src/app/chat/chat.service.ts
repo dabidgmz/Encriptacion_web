@@ -20,7 +20,7 @@ export class ChatService {
     return this.http.post<Modelo<Chat>>(environment.apiUrl + this.encryptUrl, encrypt);
   }
 
-  decrypt_text(decrypt: Chat) : Observable<Modelo<Chat>> {
+  decrypttext(decrypt: Chat) : Observable<Modelo<Chat>> {
     return this.http.post<any>(environment.apiUrl + this.decryptUrl, decrypt);
   }
   changeMessage(message: string) {

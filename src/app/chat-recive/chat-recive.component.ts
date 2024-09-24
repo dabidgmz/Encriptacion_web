@@ -20,7 +20,7 @@ export class ChatReciveComponent implements OnInit {
   public receivedMessage: string = '';
   public error: boolean = false;
   public submitting: boolean = false;
-  public messages: { text: string; sender: 'me' | 'other'; encryptedText?: string }[] = [];
+  public messages: { text: string; sender: 'me' | 'other'; encryptedText?: string, showDetails?: boolean, decryptedText?: string }[] = [];
 
   constructor(private chatMessageService: ChatMessageService, private router: Router) {}
 
@@ -37,7 +37,6 @@ export class ChatReciveComponent implements OnInit {
 
     this.messages.push({ text: this.text, sender: 'me' });
 
-    // Usar el servicio `text_recibe` para enviar el mensaje
     this.chatMessageService.text_recibe(encrypt).subscribe({
       next: (response) => {
         if (response.originalText !== this.text) {
@@ -53,6 +52,32 @@ export class ChatReciveComponent implements OnInit {
         this.submitting = false; 
       },
     });
+  }
+
+  toggleDetails(index: number): void {
+    const message = this.messages[index];
+    
+    if (!message.showDetails) {
+      const decrypt: Chat = {
+        text: '',
+        originalText: message.text,  
+        encryptedText: message.encryptedText || '',  
+        decryptedText: '' 
+      };
+
+      this.chatMessageService.decrypttext(decrypt).subscribe({
+        next: (response) => {
+          message.decryptedText = response.decryptedText;
+          message.showDetails = true; 
+        },
+        error: (error) => {
+          console.log('Error desencriptando mensaje:', error);
+          alert('Error al desencriptar el mensaje.');
+        }
+      });
+    } else {
+      message.showDetails = !message.showDetails;
+    }
   }
 
   ngOnInit(): void {
