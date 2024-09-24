@@ -3,6 +3,7 @@ export interface Modelo<SubModelo> {
     data? : SubModelo,
     errors : Object,
     ignore : boolean,
-    query : Object
+    query : Object,
+    originalText: string;
     
 }
