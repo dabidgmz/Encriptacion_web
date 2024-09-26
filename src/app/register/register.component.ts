@@ -41,7 +41,7 @@ export class RegisterComponent {
 
     this.RegisterService.User_register(user).subscribe({
       next: () => {
-        this.router.navigate(['user_index']);
+        this.router.navigate(['code']);
       },
       error: (error) => {
         console.log('Status Code:', error.status);

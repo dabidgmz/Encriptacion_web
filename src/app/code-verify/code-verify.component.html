@@ -1,0 +1,24 @@
+<div class="code-verify-container">
+    <h2>Ingresa el código</h2>
+    <p>Por favor, ingresa el código que te llegó para verificar tu cuenta.</p>
+    
+    <form (ngSubmit)="onSubmit()" #codeVerifyForm="ngForm">
+      <div class="form-group">
+        <label for="code">Código de verificación:</label>
+        <input
+          type="text"
+          id="code"
+          [(ngModel)]="code"
+          name="code"
+          required
+          class="form-control"
+          placeholder="Ingresa tu código"
+        />
+      </div>
+  
+      <button type="submit" class="btn btn-primary">
+        Verificar
+      </button>
+    </form>
+  </div>
+  

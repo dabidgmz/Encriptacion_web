@@ -17,9 +17,14 @@ export interface User {
     confirm_password: string;
   } 
 
+  export interface code{
+    code: string
+  }
+
   export interface Chat {
     text: string;
     encryptedText: string;
     originalText: string;
     decryptedText: string;
+    
 }
